@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <nav class="primary nav">
+        <img src="" alt="Logo de Cake n Bake" />
+      </nav>
+
+      <div class="saludos">
+        <h2 id="saludos"></h2>
+      </div>
+
+      <section id="imagenes_secciones">
+        <div>
+          <img src="https://picsum.photos/1024/400" alt="Imagen de prueba" />
+          <h2>Vistas</h2>
+          <div>
+            <a href="./ventas/vista/index.html">Ver ventas</a>
+            <a href="./clientes/vista/index.html">Ver clientes</a>
+          </div>
+        </div>
+        <div>
+          <img src="https://picsum.photos/1023/400" alt="Imagen de prueba" />
+          <h2>Ventas</h2>
+          <div>
+            <a href="./ventas/formulario/crear.html">Registrar venta</a>
+            <a href="./ventas/vista/index.html">Editar venta</a>
+            <a href="./ventas/vista/index.html">Eliminar venta</a>
+          </div>
+        </div>
+        <div>
+          <img src="https://picsum.photos/1022/400" alt="Imagen de prueba" />
+          <h2>Clientes</h2>
+          <div>
+            <a href="./clientes/formulario/crear.html">Registrar cliente</a>
+            <a href="./clientes/vista/index.html">Editar cliente</a>
+            <a href="./clientes/vista/index.html">Eliminar cliente</a>
+          </div>
+        </div>
+        <div onclick="ocultarOpciones1()">
+          <img src="https://picsum.photos/1021/400" alt="Imagen de prueba" />
+          <h2>Mas opciones</h2>
+          <div>
+            <a href="">Opcion 1</a>
+            <a href="">Opcion 2</a>
+            <a href="">Opcion 3</a>
+            <a href="">Opcion 4</a>
+          </div>
+        </div>
+      </section>
+     
+    </main>
+
+    <script>
+      function ocultarOpciones1() {
+        document.getElementById("imagenes_secciones").style.flex = "0";
+      }
+
+      const saludos = document.getElementById("saludos");
+      //get time of the day and greet the user
+      const time = new Date().getHours();
+      if (time < 12) {
+        saludos.innerHTML = "¡Buenos días!";
+      } else if (time < 18) {
+        saludos.innerHTML = "¡Buenas tardes!";
+      } else {
+        saludos.innerHTML = "¡Buenas noches!";
+      }
+    </script>
+  </body>
+</html>
