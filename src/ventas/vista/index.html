@@ -1,12 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script defer src="./index.js"></script>
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+    <link rel="stylesheet" href="index.css" />
+    <title>Vista de ventas</title>
+  </head>
+  <body>
+    <div class="orderBy">
+        <div>
+            <a href="../../index.html">
+            <img src="" alt="Logo de la empresa">
+
+            </a>
+            <h1>Tus ventas</h1>
+        </div>
+      
+        <div>
+        <p>Ordenar por:</p>
+        
+        <select id="selectOrden" name="">
+          <option value="1">Metodo de pago</option>
+          <option value="2">Precio</option>
+          <option value="3">Detalle</option>
+          <option value="4">Fecha de pedido</option>
+          <option value="5">Fecha de entrega</option>
+          <option value="6">ID</option>
+        </select>
+      </div>
+    </div>
+
+    <table id="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Metodo de pago</th>
+          <th>Detalle</th>
+          <th>Precio</th>
+          <th>Fecha de pedido</th>
+          <th>Fecha de entrega</th>
+        </tr>
+        
+      </thead>
+      <tbody id="tbody-ventas"></tbody>
+    </table>
+  </body>
 </html>
