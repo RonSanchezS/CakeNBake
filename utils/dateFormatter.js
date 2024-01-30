@@ -6,6 +6,10 @@ var dia = fechaOriginal.getUTCDate();
 var mes = fechaOriginal.getUTCMonth();
 var anio = fechaOriginal.getUTCFullYear();
 
+if(isNaN (dia) || isNaN (mes) || isNaN (anio)) return null;
+  
+
+
 var nombresMeses = [
   "enero", "febrero", "marzo", "abril", "mayo", "junio",
   "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"

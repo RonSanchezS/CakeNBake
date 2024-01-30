@@ -29,7 +29,7 @@ html, body {
 }
 
 #imagenes_secciones, #imagenes_secciones2 {
-  display: flex;
+  display: grid;
   justify-content: center;
   align-items: center;
   gap: 8px;
@@ -37,6 +37,19 @@ html, body {
   position: relative;
   margin-bottom: 10%;
 }
+/*Cambios para que se vea los 4 paneles*/
+@media (min-width: 768px) {
+  #imagenes_secciones, #imagenes_secciones2{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  #imagenes_secciones, #imagenes_secciones2{
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 #imagenes_secciones div, #imagenes_secciones2 div {
   display: flex;
   flex: 1;
