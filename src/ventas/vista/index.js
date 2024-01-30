@@ -20,7 +20,7 @@ connection.connect((err) => {
   console.log("Conexión a la base de datos establecida");
 
   connection.query(
-    "select c.nombre, p.precio, COALESCE(p.fecha, '') as fecha, COALESCE(p.fecha_entrega, '') as fecha_entrega, COALESCE(p.detalle, '') as detalle, p.metodo_pago from ventas p join cliente c where c.id = p.id_usuario order by fecha desc",
+    "select c.id, c.nombre, p.precio, COALESCE(p.fecha, '') as fecha, COALESCE(p.fecha_entrega, '') as fecha_entrega, COALESCE(p.detalle, '') as detalle, p.metodo_pago from ventas p join cliente c where c.id = p.id_usuario order by fecha desc",/*ver esto*/
     (error, results, fields) => {
       if (error) {
         console.error("Error al realizar la consulta:", error);
@@ -32,6 +32,7 @@ connection.connect((err) => {
         results.forEach((venta) => {
           tbody.innerHTML += `
           <tr>
+            <td>${venta.id}</td>
             <td>${venta.nombre}</td>
             <td>${venta.metodo_pago}</td>
             <td>${venta.detalle ?? "No hay detalle"}</td>
@@ -60,16 +61,15 @@ document.addEventListener("DOMContentLoaded", () => {
         getData().then((results) => {
           ventas = results;
           const ventasPorMetodoPago = ventas.sort((a, b) => {
-            if (a.metodo_pago > b.metodo_pago) {
-              return -1; // Cambiado a -1 para ordenar de forma descendente
-            }
-            if (a.metodo_pago < b.metodo_pago) {
-              return 1; // Cambiado a 1 para ordenar de forma descendente
-            }
-            return 0;
+            const metodoPagoA = a.metodo_pago.toLowerCase(); // Convertir a minúsculas para evitar diferencias por mayúsculas/minúsculas
+            const metodoPagoB = b.metodo_pago.toLowerCase();
+        
+            return metodoPagoA.localeCompare(metodoPagoB);
           });
+        
           updateTableBody(ventasPorMetodoPago);
         });
+        
         break;
       case "2":
         // Lógica para ordenar por Precio
@@ -99,24 +99,34 @@ document.addEventListener("DOMContentLoaded", () => {
         // Lógica para ordenar por Fecha de pedido
         getData().then((results) => {
           ventas = results;
-          const ventasPorFechaPedido = ventas.sort(
-            (a, b) => new Date(b.fecha) - new Date(a.fecha)
-          ); // Cambiado a new Date(b.fecha) - new Date(a.fecha) para ordenar de forma descendente
+        
+          // Función de comparación para ordenar por fecha, colocando los elementos sin fecha al final
+          const compareByFecha = (a, b) => {
+            const dateA = new Date(a.fecha);
+            const dateB = new Date(b.fecha);
+        
+            // Manejo de elementos sin fecha
+            if (isNaN(dateA) && isNaN(dateB)) {
+              return 0; // Si ambos no tienen fecha, no cambian su orden relativo
+            } else if (isNaN(dateA)) {
+              return 1; // Si a no tiene fecha, a va al final
+            } else if (isNaN(dateB)) {
+              return -1; // Si b no tiene fecha, b va al final
+            } else {
+              return dateB - dateA; // Ordenamiento descendente por fecha
+            }
+          };
+        
+          const ventasPorFechaPedido = ventas.sort(compareByFecha);
           console.log(ventasPorFechaPedido);
-
+        
           updateTableBody(ventasPorFechaPedido);
         });
         break;
       case "5":
         // Lógica para ordenar por Fecha de entrega
-        getData().then((results) => {
-          ventas = results;
-          const ventasPorFechaEntrega = ventas.sort(
-            (a, b) => new Date(b.fecha_entrega) - new Date(a.fecha_entrega)
-          ); // Cambiado a new Date(b.fecha_entrega) - new Date(a.fecha_entrega) para ordenar de forma descendente
-          console.log(ventasPorFechaEntrega);
-
-          updateTableBody(ventasPorFechaEntrega);
+        getData2().then((results) => {
+          updateTableBody(results);
         });
         break;
       case "6":
@@ -147,7 +157,40 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         console.log("Conexión a la base de datos establecida");
 
-        connection.query("SELECT * FROM ventas", (error, results, fields) => {
+        connection.query("select c.id, c.nombre, p.precio, COALESCE(p.fecha, '') as fecha, COALESCE(p.fecha_entrega, '') as fecha_entrega, COALESCE(p.detalle, '') as detalle, p.metodo_pago from ventas p join cliente c where c.id = p.id_usuario ", (error, results, fields) => {
+          if (error) {
+            console.error("Error al realizar la consulta:", error);
+            reject(error);
+            return;
+          }
+          if (results.length > 0) {
+            resolve(results);
+          } else {
+            resolve([]);
+          }
+        });
+        connection.end();
+      });
+    });
+  };
+  const getData2 = () => {
+    return new Promise((resolve, reject) => {
+      const connection = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "root",
+        database: "pasteleria",
+      });
+
+      connection.connect((err) => {
+        if (err) {
+          console.error("Error al conectar a la base de datos:", err);
+          reject(err);
+          return;
+        }
+        console.log("Conexión a la base de datos establecida");
+
+        connection.query("select c.id, c.nombre, p.precio, COALESCE(p.fecha, '') as fecha, COALESCE(p.fecha_entrega, '') as fecha_entrega, COALESCE(p.detalle, '') as detalle, p.metodo_pago from ventas p join cliente c where c.id = p.id_usuario order by fecha_entrega desc", (error, results, fields) => {
           if (error) {
             console.error("Error al realizar la consulta:", error);
             reject(error);
@@ -171,13 +214,14 @@ function updateTableBody(ventas) {
   ventas.forEach((venta) => {
     tbody.innerHTML += `
       <tr>
-        <td>${venta.id}</td>
-        <td>${venta.metodo_pago}</td>
-        <td>${venta.precio}</td>
-        <td>${venta.detalle ?? "No hay detalle"}</td>
-        <td>${dateFormatter(venta.fecha) ?? "No hay fecha"}</td>
-        <td>${dateFormatter(venta.fecha_entrega) ?? "No hay fecha"}</td>
-      </tr>
+      <td>${venta.id}</td>
+      <td>${venta.nombre}</td>
+      <td>${venta.metodo_pago}</td>
+      <td>${venta.detalle ?? "No hay detalle"}</td>
+      <td>${venta.precio ?? "No hay precio"}</td>
+      <td>${dateFormatter(venta.fecha) ?? "No hay fecha"}</td>
+      <td>${dateFormatter(venta.fecha_entrega) ?? "No hay fecha"}</td>
+    </tr>
     `;
   });
 }
