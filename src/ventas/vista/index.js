@@ -4,6 +4,8 @@ const dateFormatter = require("../../../utils/dateFormatter");
 
 let ventas = [];
 
+let todasLasVentas = [];
+
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -27,6 +29,7 @@ connection.connect((err) => {
         return;
       }
       if (results.length > 0) {
+        todasLasVentas = results;
         const tbody = document.querySelector("#tbody-ventas");
         tbody.innerHTML = "";
         results.forEach((venta) => {
@@ -130,9 +133,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         break;
       case "6":
-        getData().then((results) => {
-          updateTableBody(results);
-        });
+        let ventasPorID = getData();
+        ventasPorID = ventasPorID.sort((a, b) => a.id - b.id);
+        updateTableBody(ventasPorID);
+        // getData().then((results) => {
+        //   updateTableBody(results);
+        // });
         break;
       default:
         // Manejo de un valor no reconocido
@@ -141,6 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const getData = () => {
+    return todasLasVentas;
     return new Promise((resolve, reject) => {
       const connection = mysql.createConnection({
         host: "localhost",
