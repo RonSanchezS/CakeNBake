@@ -22,7 +22,7 @@ connection.connect((err) => {
   console.log("Conexión a la base de datos establecida");
 
   connection.query(
-    "select c.id, c.nombre, p.precio, COALESCE(p.fecha, '') as fecha, COALESCE(p.fecha_entrega, '') as fecha_entrega, COALESCE(p.detalle, '') as detalle, p.metodo_pago from ventas p join cliente c where c.id = p.id_usuario",/*ver esto*/
+    "select c.id, c.nombre, p.precio, COALESCE(p.fecha, '') as fecha, COALESCE(p.fecha_entrega, '') as fecha_entrega, COALESCE(p.detalle, '') as detalle, p.metodo_pago from ventas p join cliente c where c.id = p.id_usuario order by fecha desc",/*ver esto*/
     (error, results, fields) => {
       if (error) {
         console.error("Error al realizar la consulta:", error);

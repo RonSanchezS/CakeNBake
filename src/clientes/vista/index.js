@@ -113,7 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
       case "3":
         let clientesPorTotalDecompra = getData();
-        clientesPorTotalDecompra = clientesPorTotalDecompra.sort((a, b) => a.precio - b.precio);
+        clientesPorTotalDecompra = clientesPorTotalDecompra.sort((a, b) => a.total_gastado - b.total_gastado);
+        clientesPorTotalDecompra = clientesPorTotalDecompra.reverse();
         updateTableBody(clientesPorTotalDecompra);
         break;
       case "4":
