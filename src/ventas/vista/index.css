@@ -96,3 +96,11 @@ table {
 body {
   padding: 16px 32px;
 }
+
+tr	{
+  display: flex;
+  align-items: center;
+  &:hover {
+    background-color: rgb(253, 230, 234);
+  }
+}
