@@ -117,7 +117,7 @@
   }
 }
 
- /* Estilos generales para el cuerpo del botón de alternancia */
+/* Estilos generales para el cuerpo del botón de alternancia */
  .toggle-btn {
   display: inline-block;
   font-family: 'Arial', sans-serif;
@@ -136,6 +136,7 @@
   border-radius: 13px;
   background-color: #bdc3c7; /* Color de fondo del botón desactivado */
   transition: background-color 0.3s;
+  cursor: pointer;
 }
 
 /* Estilos para el botón de alternancia activo */
@@ -166,3 +167,41 @@
   position: absolute;
   left: -9999px;
 }
+
+/* Código para flecha de selección de orden */
+.order-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.order-dropdown select {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+.order-dropdown:hover select {
+  display: block;
+  cursor: pointer;
+}
+
+.arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+.arrow.down {
+  border-top: 5px solid #000; /* Flecha hacia abajo */
+}
+
+.arrow.up {
+  border-bottom: 5px solid #000; /* Flecha hacia arriba */
+}
+
+/* ... */
