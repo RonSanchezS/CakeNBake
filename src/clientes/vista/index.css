@@ -169,24 +169,26 @@
 }
 
 /* Código para flecha de selección de orden */
-.order-dropdown {
+/* Cóido para que la flecha esta al lado derecho de cada th*/
+.order-dropdown { 
   position: relative;
   display: inline-block;
 }
 
-.order-dropdown select {
+/*.order-dropdown select {
   display: none;
   position: absolute;
   top: 100%;
   left: 0;
-}
+}*/
 
-.order-dropdown:hover select {
+/*.order-dropdown:hover select {
   display: block;
   cursor: pointer;
-}
+}*/
 
-.arrow {
+
+.arrow {/*Código para dibujar la flecha*/
   display: inline-block;
   width: 0;
   height: 0;
@@ -204,4 +206,4 @@
   border-bottom: 5px solid #000; /* Flecha hacia arriba */
 }
 
-/* ... */
+

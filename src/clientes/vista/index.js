@@ -151,3 +151,16 @@ const updateTableBody = (clientes) => {
     `;
   });
 };
+
+/* Código para cambiar el sentido de las flechas en el th */
+function cambiarFlecha(columnId){
+  let flecha = document.getElementById('arrow-' + columnId);
+  let flechaAbajo = flecha.classList.contains('down');
+  if (flechaAbajo){
+    flecha.classList.remove('down');
+    flecha.classList.add('up');
+  } else {
+    flecha.classList.remove('up');
+    flecha.classList.add('down');
+  }
+}
