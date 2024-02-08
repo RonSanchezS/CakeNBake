@@ -47,7 +47,9 @@ connection.connect((err) => {
         tbody.innerHTML = "";
         todosLosClientes.forEach((cliente) => {
           console.log(cliente);
-          const nombreCliente = cliente.nombre_cliente ? cliente.nombre_cliente : "Sin nombre";
+          const nombreCliente = cliente.nombre_cliente
+            ? cliente.nombre_cliente
+            : "Sin nombre";
 
           tbody.innerHTML += `
       <tr>
@@ -58,7 +60,7 @@ connection.connect((err) => {
       </tr>
     `;
         });
-      }else {
+      } else {
         resolve([]);
       }
     }
@@ -76,10 +78,17 @@ document.addEventListener("DOMContentLoaded", () => {
       case "1":
         let clientesAlfabeticamente = getData();
         clientesAlfabeticamente = clientesAlfabeticamente.sort((a, b) => {
-          const nombreClienteA = a.nombre_cliente ? a.nombre_cliente.toLowerCase() : "sin nombre";
-          const nombreClienteB = b.nombre_cliente ? b.nombre_cliente.toLowerCase() : "sin nombre";
+          const nombreClienteA = a.nombre_cliente
+            ? a.nombre_cliente.toLowerCase()
+            : "sin nombre";
+          const nombreClienteB = b.nombre_cliente
+            ? b.nombre_cliente.toLowerCase()
+            : "sin nombre";
 
-          if (nombreClienteA === "sin nombre" && nombreClienteB === "sin nombre") {
+          if (
+            nombreClienteA === "sin nombre" &&
+            nombreClienteB === "sin nombre"
+          ) {
             return 0; // Si ambos son "sin nombre", no cambian su orden relativo
           } else if (nombreClienteA === "sin nombre") {
             return 1; // Si a es "sin nombre", a va al final
@@ -109,17 +118,21 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
         updateTableBody(clientesPorCarnet);
-        
+
         break;
       case "3":
         let clientesPorTotalDecompra = getData();
-        clientesPorTotalDecompra = clientesPorTotalDecompra.sort((a, b) => a.total_gastado - b.total_gastado);
+        clientesPorTotalDecompra = clientesPorTotalDecompra.sort(
+          (a, b) => a.total_gastado - b.total_gastado
+        );
         clientesPorTotalDecompra = clientesPorTotalDecompra.reverse();
         updateTableBody(clientesPorTotalDecompra);
         break;
       case "4":
         let clientesPorId = getData();
-        clientesPorId = clientesPorId.sort((a, b) => a.id_cliente - b.id_cliente);
+        clientesPorId = clientesPorId.sort(
+          (a, b) => a.id_cliente - b.id_cliente
+        );
         updateTableBody(clientesPorId);
         break;
 
@@ -139,7 +152,9 @@ const updateTableBody = (clientes) => {
   const tbody = document.querySelector("#tbody-clientes");
   tbody.innerHTML = "";
   clientes.forEach((cliente) => {
-    const nombreCliente = cliente.nombre_cliente ? cliente.nombre_cliente : "Sin nombre";
+    const nombreCliente = cliente.nombre_cliente
+      ? cliente.nombre_cliente
+      : "Sin nombre";
 
     tbody.innerHTML += `
       <tr>
@@ -152,3 +167,128 @@ const updateTableBody = (clientes) => {
   });
 };
 
+/* Código para cambiar el sentido de las flechas en el th */
+function cambiarFlecha(columnId) {
+  let flecha = document.getElementById("arrow-" + columnId);
+  let flechaAbajo = flecha.classList.contains("down");
+
+  if (flechaAbajo) {
+    flecha.classList.remove("down");
+    flecha.classList.add("up");
+  } else {
+    flecha.classList.remove("up");
+    flecha.classList.add("down");
+  }
+  switch (columnId) {
+    case "nombre":
+      let clientesAlfabeticamente = getData();
+      if (flechaAbajo) {
+        clientesAlfabeticamente = clientesAlfabeticamente.sort((a, b) => {
+          const nombreClienteA = a.nombre_cliente
+            ? a.nombre_cliente.toLowerCase()
+            : "sin nombre";
+          const nombreClienteB = b.nombre_cliente
+            ? b.nombre_cliente.toLowerCase()
+            : "sin nombre";
+
+          if (
+            nombreClienteA === "sin nombre" &&
+            nombreClienteB === "sin nombre"
+          ) {
+            return 0; // Si ambos son "sin nombre", no cambian su orden relativo
+          } else if (nombreClienteA === "sin nombre") {
+            return 1; // Si a es "sin nombre", a va al final
+          } else if (nombreClienteB === "sin nombre") {
+            return -1; // Si b es "sin nombre", b va al final
+          } else {
+            return nombreClienteA.localeCompare(nombreClienteB);
+          }
+        });
+      } else {
+        clientesAlfabeticamente = clientesAlfabeticamente.sort((a, b) => {
+          const nombreClienteA = a.nombre_cliente
+            ? a.nombre_cliente.toLowerCase()
+            : "sin nombre";
+          const nombreClienteB = b.nombre_cliente
+            ? b.nombre_cliente.toLowerCase()
+            : "sin nombre";
+
+          if (
+            nombreClienteA === "sin nombre" &&
+            nombreClienteB === "sin nombre"
+          ) {
+            return 0; // Si ambos son "sin nombre", no cambian su orden relativo
+          } else if (nombreClienteA === "sin nombre") {
+            return -1; // Si a es "sin nombre", a va al inicio
+          } else if (nombreClienteB === "sin nombre") {
+            return 1; // Si b es "sin nombre", b va al inicio
+          } else {
+            return nombreClienteB.localeCompare(nombreClienteA);
+          }
+        });
+      }
+      updateTableBody(clientesAlfabeticamente);
+      break;
+    case "carnet":
+      let clientesPorCarnet = getData();
+      if (flechaAbajo) {
+        clientesPorCarnet = clientesPorCarnet.sort((a, b) => {
+          const carnetA = a.carnet ? a.carnet.toLowerCase() : "";
+          const carnetB = b.carnet ? b.carnet.toLowerCase() : "";
+
+          if (carnetA === "0" && carnetB === "0") {
+            return 0; // Si ambos son "sin nombre", no cambian su orden relativo
+          } else if (carnetA === "0") {
+            return 1; // Si a es "sin nombre", a va al final
+          } else if (carnetB === "0") {
+            return -1; // Si b es "sin nombre", b va al final
+          } else {
+            return carnetA.localeCompare(carnetB);
+          }
+        });
+      } else {
+        clientesPorCarnet = clientesPorCarnet.sort((a, b) => {
+          const carnetA = a.carnet ? a.carnet.toLowerCase() : "";
+          const carnetB = b.carnet ? b.carnet.toLowerCase() : "";
+
+          if (carnetA === "0" && carnetB === "0") {
+            return 0; // Si ambos son "sin nombre", no cambian su orden relativo
+          } else if (carnetA === "0") {
+            return -1; // Si a es "sin nombre", a va al inicio
+          } else if (carnetB === "0") {
+            return 1; // Si b es "sin nombre", b va al inicio
+          } else {
+            return carnetB.localeCompare(carnetA);
+          }
+        });
+      }
+      updateTableBody(clientesPorCarnet);
+      break;
+    case "total":
+      let clientesPorTotalDecompra = getData();
+      if (flechaAbajo) {
+        clientesPorTotalDecompra = clientesPorTotalDecompra.sort(
+          (a, b) => a.total_gastado - b.total_gastado
+        );
+      } else {
+        clientesPorTotalDecompra = clientesPorTotalDecompra.sort(
+          (a, b) => b.total_gastado - a.total_gastado
+        );
+      }
+      updateTableBody(clientesPorTotalDecompra);
+      break;
+    case "id":
+      let clientesPorId = getData();
+      if (flechaAbajo) {
+        clientesPorId = clientesPorId.sort(
+          (a, b) => a.id_cliente - b.id_cliente
+        );
+      } else {
+        clientesPorId = clientesPorId.sort(
+          (a, b) => b.id_cliente - a.id_cliente
+        );
+      }
+      updateTableBody(clientesPorId);
+      break;
+  }
+}
