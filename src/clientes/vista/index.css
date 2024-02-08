@@ -206,4 +206,7 @@
   border-bottom: 5px solid #000; /* Flecha hacia arriba */
 }
 
+th{
+  cursor: pointer;
+}
 
