@@ -174,20 +174,6 @@
   position: relative;
   display: inline-block;
 }
-
-/*.order-dropdown select {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-}*/
-
-/*.order-dropdown:hover select {
-  display: block;
-  cursor: pointer;
-}*/
-
-
 .arrow {/*Código para dibujar la flecha*/
   display: inline-block;
   width: 0;

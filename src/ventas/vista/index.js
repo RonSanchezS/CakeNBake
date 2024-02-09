@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ventasPorMetodoPago = ventasPorMetodoPago.sort((a, b) => {
           const metodoPagoA = a.metodo_pago.toLowerCase(); // Convertir a minúsculas para evitar diferencias por mayúsculas/minúsculas
           const metodoPagoB = b.metodo_pago.toLowerCase();
-          
+
           return metodoPagoA.localeCompare(metodoPagoB);
         });
         updateTableBody(ventasPorMetodoPago);
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ventasPorFechaPedido = ventasPorFechaPedido.sort((a, b) => {
           const dateA = new Date(a.fecha);
           const dateB = new Date(b.fecha);
-        
+
           // Manejo de elementos sin fecha
           if (isNaN(dateA) && isNaN(dateB)) {
             return 0; // Si ambos no tienen fecha, no cambian su orden relativo
@@ -182,4 +182,18 @@ function updateTableBody(ventas) {
     </tr>
     `;
   });
+}
+
+/* Código para cambiar el sentido de la flecha y el orden de los datos de ventas */
+function cambiarOrden(columnId) {
+  let flecha = document.getElementById("arrow-" + columnId);
+  let flechaAbajo = flecha.classList.contains("down");
+
+  if (flechaAbajo) {
+    flecha.classList.remove("down");
+    flecha.classList.add("up");
+  } else {
+    flecha.classList.remove("up");
+    flecha.classList.add("down");
+  }
 }
