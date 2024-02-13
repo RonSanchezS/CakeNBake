@@ -57,7 +57,7 @@
           }
         }
       }
-      button{
+      button {
         cursor: pointer;
         border-radius: 4px;
         &:hover {
@@ -76,35 +76,54 @@
           width: 24px;
           height: 24px;
           transition: all 0.3s ease-in-out;
-
         }
-        &:hover{
+        &:hover {
           color: #ff7b7b;
           svg {
             fill: #ff7b7b;
           }
         }
       }
-      
+      #cancelButton{
+        text-decoration: none;
+        color: pink;
+        padding: 10px 20px;
+        transition: all 0.3s ease-in-out;
+        &:hover{
+          color: #ff7b7b;
+        }
+      }
     </style>
   </head>
   <body>
     <nav class="primary nav">
       <a href="../../index.html">
-        <img src="../../../assets/LogoCakeNBake.png" alt="Logo de Cake n Bake" />
+        <img
+          src="../../../assets/LogoCakeNBake.png"
+          alt="Logo de Cake n Bake"
+        />
       </a>
     </nav>
     <main>
       <form id="form-cliente">
         <div>
           <label for="nombre">Nombre Completo</label>
-          <input type="text" id="nombre" placeholder="Nombre del cliente" required />
+          <input
+            type="text"
+            id="nombre"
+            placeholder="Nombre del cliente"
+            required
+          />
         </div>
         <div>
           <label for="carnet">Carnet</label>
-          <input type="number" id="carnet" placeholder="Carnet del cliente sin terminacion" />
+          <input
+            type="number"
+            id="carnet"
+            placeholder="Carnet del cliente sin terminacion"
+          />
         </div>
-
+        <a href="../../index.html" id="cancelButton">Cancelar</a>
         <button type="submit" id="createBtn">Crear</button>
       </form>
       <div>
@@ -122,6 +141,28 @@
     <script>
       const mysql = require("mysql2");
 
+      const urlParams = new URLSearchParams(window.location.search);
+      const clienteId = urlParams.get("clienteId");
+      const nombreCliente = decodeURIComponent(urlParams.get("nombre"));
+      const carnetURL = urlParams.get("carnet");
+
+      const nombreForm = document.getElementById("nombre");
+      const carnetForm = document.getElementById("carnet");
+
+      btnCrear = document.getElementById("createBtn");
+
+      if(clienteId){
+        nombreForm.value = nombreCliente;
+        carnetForm.value = carnetURL;
+        btnCrear.innerText = "Actualizar";
+      }
+
+
+
+
+      console.log("ID del cliente:", clienteId);
+      console.log("Nombre del cliente:", nombreCliente);
+
       document
         .getElementById("form-cliente")
         .addEventListener("submit", function (event) {
@@ -132,7 +173,6 @@
       function createCliente() {
         const nombre = document.getElementById("nombre").value;
         const carnet = document.getElementById("carnet").value;
-
 
         const connection = mysql.createConnection({
           host: "localhost",
@@ -155,7 +195,7 @@
             return;
           }
 
-          if(carnet === ""){
+          if (carnet === "") {
             carnet = 0;
           }
 
@@ -163,9 +203,20 @@
           console.log("Carnet:", carnet);
           console.log("Conexión a la base de datos establecida");
 
+          clienteId
+            ? updateCliente(nombre, carnet, connection)
+            : insertCliente(nombre, carnet, connection);
+
           // Insertar un cliente
-          connection.query(
-            `INSERT INTO cliente (nombre, carnet) VALUES ('${nombre}', '${carnet ?? 0}')`,
+          
+        });
+      }
+
+      function insertCliente(nombre, carnet, connection) {
+        connection.query(
+            `INSERT INTO cliente (nombre, carnet) VALUES ('${nombre}', '${
+              carnet ?? 0
+            }')`,
             (err, result) => {
               if (err) {
                 console.error("Error al insertar un cliente:", err);
@@ -177,8 +228,22 @@
               connection.end();
             }
           );
+      }
 
-        });
+      function updateCliente(nombre, carnet, connection){
+        connection.query(
+          `UPDATE cliente SET nombre = '${nombre}', carnet = '${carnet ?? 0}' WHERE id = ${clienteId}`,
+          (err, result) => {
+            if (err) {
+              console.error("Error al actualizar un cliente:", err);
+              reject(err);
+              return;
+            }
+            console.log("Cliente actualizado:", result);
+            alert("Cliente actualizado correctamente");
+            connection.end();
+          }
+        );
       }
     </script>
   </body>
