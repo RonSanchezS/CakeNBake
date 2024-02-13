@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="./index.js"></script>
+    <script src="./index.js"></script>
     <link rel="stylesheet" href="index.css" />
     <title>Vista de ventas</title>
   </head>
@@ -28,6 +28,7 @@
           <option value="4">Fecha de pedido</option>
           <option value="5">Fecha de entrega</option>
           <option value="6">ID</option>
+          <option value="7">Nombre</option>
         </select>
       </div>
     </div>
@@ -35,15 +36,49 @@
     <table id="table">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Metodo de pago</th>
-          <th>Detalle</th>
-          <th>Precio</th>
-          <th>Fecha de pedido</th>
-          <th>Fecha de entrega</th>
-        </tr>
-        
+          <th onclick="cambiarOrden('id')">
+            ID
+            <div class="order-dropdown" id="dropdown-id">
+              <span id="arrow-id" class="arrow down"></span>
+            </div>
+          </th>
+          <th onclick="cambiarOrden('nombre')">
+            Nombre
+            <div class="order-dropdown" id="dropdown-nombre">
+              <span id="arrow-nombre" class="arrow down"></span>
+            </div>
+          </th>
+          <th onclick="cambiarOrden('pago')">
+            Metodo de pago
+            <div class="order-dropdown" id="dropdown-pago">
+              <span id="arrow-pago" class="arrow down"></span>
+            </div>
+          </th>
+          <th onclick="cambiarOrden('detalle')">
+            Detalle
+            <div class="order-dropdown" id="dropdown-detalle">
+              <span id="arrow-detalle" class="arrow down"></span>
+            </div>
+          </th>
+          <th onclick="cambiarOrden('precio')">
+            Precio
+            <div class="order-dropdown" id="dropdown-precio">
+              <span id="arrow-precio" class="arrow down"></span>
+            </div>
+          </th>
+          <th onclick="cambiarOrden('fechaP')">
+            Fecha de pedido
+            <div class="order-dropdown" id="dropdown-fechaP">
+              <span id="arrow-fechaP" class="arrow down"></span>
+            </div>
+          </th>
+          <th onclick="cambiarOrden('fechaE')">
+            Fecha de entrega
+            <div class="order-dropdown" id="dropdown-fechaE">
+              <span id="arrow-fechaE" class="arrow down"></span>
+            </div>
+          </th>
+        </tr>    
       </thead>
       <tbody id="tbody-ventas"></tbody>
     </table>

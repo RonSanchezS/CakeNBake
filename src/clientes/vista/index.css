@@ -116,6 +116,8 @@ tr {
 }
 
 /* Estilos generales para el cuerpo del botón de alternancia */
+ .toggle-btn {
+/* Estilos generales para el cuerpo del botón de alternancia */
 .toggle-btn {
   display: inline-block;
   font-family: "Arial", sans-serif;
@@ -134,6 +136,7 @@ tr {
   border-radius: 13px;
   background-color: #bdc3c7; /* Color de fondo del botón desactivado */
   transition: background-color 0.3s;
+  cursor: pointer;
 }
 
 /* Estilos para el botón de alternancia activo */
@@ -165,6 +168,34 @@ tr {
   left: -9999px;
 }
 
+/* Código para flecha de selección de orden */
+/* Cóido para que la flecha esta al lado derecho de cada th*/
+.order-dropdown { 
+  position: relative;
+  display: inline-block;
+}
+.arrow {/*Código para dibujar la flecha*/
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+.arrow.down {
+  border-top: 5px solid #000; /* Flecha hacia abajo */
+}
+
+.arrow.up {
+  border-bottom: 5px solid #000; /* Flecha hacia arriba */
+}
+
+th{
+  cursor: pointer;
+}
+
 th:last-of-type{
   flex: 0.5;
 }
@@ -183,7 +214,8 @@ th:last-of-type{
   cursor: pointer;
   fill: #ff7b7b;
 }
-.eliminar { width: 24px;
+.eliminar { 
+  width: 24px;
   height: 24px;
   cursor: pointer;
   fill: red;

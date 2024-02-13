@@ -1,50 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="./index.js"></script>
-    <link rel="stylesheet" href="index.css" />
-    <title>Vista de clientes</title>
-  </head>
-  <body>
-    <div class="orderBy">
-        <div>
-            <a href="../../index.html">
-            <img src="../../../assets/LogoCakeNBake.png" alt="Logo de la empresa">
 
-            </a>
-            <h1>Tus clientes</h1>
-        </div>
-      
-        <div>
-          <p>Orden:</p>
-          <div class="toggle-btn">
-            <input type="radio" id="toggle-order" name="order" value="asc">
-            <label for="toggle-order"></label>
-        </div>
-        <p>Ordenar por:</p>
-        <select id="selectOrden" name="">
-          <option disabled selected>-- Selecionar un orden --</option>
-          <option value="1">Nombre</option>
-          <option value="2">Carnet</option>
-          <option value="3">Total de compras</option>
-          <option value="4">ID</option>
-        </select>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="./index.js"></script>
+  <link rel="stylesheet" href="index.css" />
+  <title>Vista de clientes</title>
+</head>
+
+<body>
+  <div class="orderBy">
+    <div>
+      <a href="../../index.html">
+        <img src="../../../assets/LogoCakeNBake.png" alt="Logo de la empresa">
+
+      </a>
+      <h1>Tus clientes</h1>
     </div>
 
-    <table id="table">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Nombre</th>
-          <th>Carnet</th>
-          <th>Total de compras</th>
+    <div>
+      <p>Ordenar por:</p>
+      <select id="selectOrden" name="">
+        <option disabled selected>-- Selecionar un orden --</option>
+        <option value="1">Nombre</option>
+        <option value="2">Carnet</option>
+        <option value="3">Total de compras</option>
+        <option value="4">ID</option>
+      </select>
+    </div>
+  </div>
+
+  <table id="table">
+    <thead>
+      <tr>
+        <th onclick="cambiarFlecha('id')">
+          Id
+          <div class="order-dropdown" id="dropdown-id">
+            <span id="arrow-id" class="arrow down"></span>
+          </div>
+        </th>
+        <th onclick="cambiarFlecha('nombre')">
+          Nombre
+          <div class="order-dropdown" id="dropdown-nombre">
+            <span id="arrow-nombre" class="arrow down"></span>
+          </div>
+        </th>
+        <th onclick="cambiarFlecha('carnet')">
+          Carnet
+          <div class="order-dropdown" id="dropdown-carnet">
+            <span id="arrow-carnet" class="arrow down"></span>
+          </div>
+        </th>
+        <th onclick="cambiarFlecha('total')">
+          Total de compras
+          <div class="order-dropdown" id="dropdown-total">
+            <span id="arrow-total" class="arrow down"></span>
+          </div>
+        </th>
           <th></th>
-        </tr>
-      </thead>
-      <tbody id="tbody-clientes"></tbody>
-    </table>
-  </body>
+      </tr>
+    </thead>
+    <tbody id="tbody-clientes"></tbody>
+  </table>
+</body>
+
 </html>
