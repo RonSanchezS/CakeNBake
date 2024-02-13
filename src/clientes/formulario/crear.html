@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crear cliente nuevo</title>
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .nav {
+        display: flex;
+        height: 100px;
+        background-color: pink;
+        padding: 16px 40px;
+      }
+      .nav img {
+        height: 100%;
+        width: auto;
+        object-fit: cover;
+      }
+      #form-cliente {
+        padding: 20px;
+      }
+      #form-cliente label {
+        display: block;
+        margin-bottom: 10px;
+      }
+      #form-cliente input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        border-radius: 4px;
+        border: 1px solid #b4b4b4;
+      }
+      #form-cliente button {
+        padding: 10px 20px;
+        background-color: pink;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      main {
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: row;
+        > * {
+          flex: 1;
+          &:last-child {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+          }
+        }
+      }
+      button{
+        cursor: pointer;
+        border-radius: 4px;
+        &:hover {
+          background-color: #ff7b7b;
+        }
+      }
+      .listar-todo {
+        text-decoration: none;
+        color: pink;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease-in-out;
+        svg {
+          fill: pink;
+          width: 24px;
+          height: 24px;
+          transition: all 0.3s ease-in-out;
+
+        }
+        &:hover{
+          color: #ff7b7b;
+          svg {
+            fill: #ff7b7b;
+          }
+        }
+      }
+      
+    </style>
+  </head>
+  <body>
+    <nav class="primary nav">
+      <a href="../../index.html">
+        <img src="../../../assets/LogoCakeNBake.png" alt="Logo de Cake n Bake" />
+      </a>
+    </nav>
+    <main>
+      <form id="form-cliente">
+        <div>
+          <label for="nombre">Nombre Completo</label>
+          <input type="text" id="nombre" placeholder="Nombre del cliente" required />
+        </div>
+        <div>
+          <label for="carnet">Carnet</label>
+          <input type="number" id="carnet" placeholder="Carnet del cliente sin terminacion" />
+        </div>
+
+        <button type="submit" id="createBtn">Crear</button>
+      </form>
+      <div>
+        <a href="../vista/index.html" class="listar-todo"
+          >Ver todos los clientes<span
+            ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+              <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+              <path
+                d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
+              /></svg></span
+        ></a>
+      </div>
+    </main>
+
+    <script>
+      const mysql = require("mysql2");
+
+      document
+        .getElementById("form-cliente")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Previene el comportamiento por defecto del formulario (actualizar la página)
+          createCliente(); // Llama a la función para crear el cliente
+        });
+
+      function createCliente() {
+        const nombre = document.getElementById("nombre").value;
+        const carnet = document.getElementById("carnet").value;
+
+
+        const connection = mysql.createConnection({
+          host: "localhost",
+          user: "root",
+          password: "root",
+          database: "pasteleria",
+        });
+
+        connection.connect((err) => {
+          if (err) {
+            console.error("Error al conectar a la base de datos:", err);
+            reject(err);
+            return;
+          }
+          const nombre = document.getElementById("nombre").value;
+          var carnet = document.getElementById("carnet").value;
+
+          if (!nombre) {
+            alert("El nombre es requerido");
+            return;
+          }
+
+          if(carnet === ""){
+            carnet = 0;
+          }
+
+          console.log("Nombre:", nombre);
+          console.log("Carnet:", carnet);
+          console.log("Conexión a la base de datos establecida");
+
+          // Insertar un cliente
+          connection.query(
+            `INSERT INTO cliente (nombre, carnet) VALUES ('${nombre}', '${carnet ?? 0}')`,
+            (err, result) => {
+              if (err) {
+                console.error("Error al insertar un cliente:", err);
+                reject(err);
+                return;
+              }
+              console.log("Cliente insertado:", result);
+              alert("Cliente insertado correctamente");
+              connection.end();
+            }
+          );
+
+        });
+      }
+    </script>
+  </body>
+</html>
