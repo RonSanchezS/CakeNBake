@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="./index.css">
+<title>Formulario de Ventas</title>
+</head>
+<body>
+
+<div class="border">
+    <div class="container">
+        
+        <div class="title">
+            <h2>Registrar Venta</h2>
+        </div>
+
+        <form action="#" method="post">
+
+            <div class="left-group">
+                <div class="cliente-form">
+                    <label for="cliente">Cliente:</label>
+                    <input type="text" id="cliente" name="cliente" required>
+                </div>
+                <div class="fecha-form">
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fecha" name="fecha" required>
+                </div>
+                <div class="detalle-form">
+                    <label for="detalle">Detalle:</label>
+                    <input type="text" id="detalle" name="detalle" required>
+                </div>
+            </div>
+
+            <div class="right-group">
+                <div class="precio-form">
+                    <label for="precio">Precio de Venta:</label>
+                    <div id="precio-button">
+                        <input type="number" id="precio" name="precio" required>
+                        <select name="moneda" id="moneda">
+                            <option value="bolivianos">Bs.</option>
+                            <option value="dolares">$us.</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="fecha-entrega-form">
+                    <label for="fecha-entrega">Fecha de Entrega:</label>
+                    <input type="date" id="fecha-entrega" name="fecha-entrega" required>
+                </div>
+                <div class="metodo-pago-form">
+                    <label for="metodo-pago">Método de Pago:</label>
+                    <select name="metodo-pago" id="metodo-pago" required>
+                        <option value="efectivo">Efectivo</option>
+                        <option value="qr">QR</option>
+                        <option value="transferencia">Transferencia</option>
+                    </select>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="enviar-button">
+            <input type="submit" value="Enviar">
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

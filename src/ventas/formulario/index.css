@@ -1,0 +1,117 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+.border {
+    background-color: pink;
+    padding-top: 80px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+}
+.left-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 250px;
+}
+.right-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 250px;
+}
+form {
+    display: flex;
+    gap: 100px;
+}
+
+.left-group div {
+    display: flex;
+    flex-direction: column;
+}
+.right-group div {
+    display: flex;
+    flex-direction: column;
+}
+#precio-button {
+    display: flex;
+    flex-direction: row;
+}
+#cliente {
+    border: 1px solid #B4B4B4;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    max-width: 300px;
+    border-radius: 4px;
+}
+#fecha {
+    border: 1px solid #B4B4B4;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    max-width: 300px;
+    border-radius: 4px;
+}
+#detalle {
+    border: 1px solid #B4B4B4;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    max-width: 300px;
+    border-radius: 4px;
+}
+#precio {
+    border: 1px solid #B4B4B4;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    max-width: 300px;
+    border-radius: 4px;
+}
+#moneda {
+    border: 1px solid #B4B4B4;
+    display: flex;
+    align-items: center;
+    padding: 2px 3px;
+    max-width: 120px;
+    border-radius: 4px;
+}
+#fecha-entrega {
+    border: 1px solid #B4B4B4;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    max-width: 300px;
+    border-radius: 4px;
+}
+#metodo-pago {
+    border: 1px solid #B4B4B4;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    max-width: 300px;
+    border-radius: 4px;
+}
+
+.enviar-button input {
+    margin-top: 16px;
+    width: 300px;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.enviar-button input[type="submit"] {
+    background-color: pink;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
