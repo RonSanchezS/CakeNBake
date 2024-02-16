@@ -10,10 +10,30 @@
 </head>
 
 <body>
+  <div id="miModal" onclick="mostrarModal()">
+    <div>
+      <h2 id="cliente-nombre">Modal</h2>
+      <a href="../../ventas/vista/index.html">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Detalle</th>
+              <th>Fecha Venta</th>
+              <th>Fecha entrega</th>
+              <th>Metodo de pago</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-modal"></tbody>
+        </table>
+      </a>
+    </div>
+  </div>
   <div class="orderBy">
     <div>
       <a href="../../index.html">
-        <img src="" alt="Logo de la empresa">
+        <img src="../../../assets/LogoCakeNBake.png" alt="Logo de la empresa">
 
       </a>
       <h1>Tus clientes</h1>
@@ -58,10 +78,9 @@
             <span id="arrow-total" class="arrow down"></span>
           </div>
         </th>
+          <th></th>
       </tr>
     </thead>
-    <script></script>
-
     <tbody id="tbody-clientes"></tbody>
   </table>
 </body>

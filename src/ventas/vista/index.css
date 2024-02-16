@@ -104,3 +104,32 @@ tr	{
     background-color: rgb(253, 230, 234);
   }
 }
+
+/* Código para flecha de selección de orden */
+/* Cóido para que la flecha esta al lado derecho de cada th*/
+.order-dropdown { 
+  position: relative;
+  display: inline-block;
+}
+
+.arrow {/*Código para dibujar la flecha*/
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+.arrow.down {
+  border-top: 5px solid #000; /* Flecha hacia abajo */
+}
+
+.arrow.up {
+  border-bottom: 5px solid #000; /* Flecha hacia arriba */
+}
+
+th{
+  cursor: pointer;
+}
